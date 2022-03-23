@@ -1,0 +1,53 @@
+#!/bin/bash
+echo "What IP would you like to check the status of? Please input the first Octet without Periods"
+
+read FirstOctet
+echo "what is the 2nd Octet"
+read SecondOctet
+echo "what is the 3rd Octet"
+read ThirdOctet
+echo "what is the 4th Octet"
+read FourthOctet
+
+
+
+if [ $FirstOctet -le 255 ]
+	then
+		echo "IP Address is Valid"
+	else
+		echo "1st octet is WRONG"
+	if [ $SecondOctet -le 255 ]
+		then
+			echo "2nd octet is valid"
+		else
+			echo "2nd Octet is Wrong"
+	fi
+			if [ $ThirdOctet -le 255 ]
+				then
+					echo "3rd octet is valid"
+				else
+					echo "3rd Octet is wrong"
+			fi		
+				if [ $FourthOctet -le 255 ]
+					then
+						echo "4th octet is valid"
+					else
+						echo "4th Octet is wrong"
+						exit 1
+				fi	
+fi
+ping $FirstOctet.$SecondOctet.$ThirdOctet.$FourthOctet -c 1 &>/dev/null
+if [ $? -eq 1 ]
+	then
+		echo "$FirstOctet.$SecondOctet.$ThirdOctet.$FourthOctet is UP"
+		exit 0
+	else
+		echo "$FirstOctet.$SecondOctet.$ThirdOctet.$FourthOctet is DOWN"
+		exit 1
+fi
+
+
+
+
+
+
